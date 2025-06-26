@@ -20,7 +20,9 @@ if (isset($_POST['login'])) {
                 $_SESSION['user_name'] = $user['name'];
                 $_SESSION['user_role'] = $user['role'];
 
-                echo "✅ Login Successful! Welcome, " . htmlspecialchars($user['name']) . ". Go to <a href='dashboard.php'>Dashboard</a>";
+                echo "✅ Login Successful! Welcome, " . htmlspecialchars($user['name']) . ". 
+                <br> <a href='dashboard.php'>Go to Dashboard</a>
+                <br> <a href='http://localhost/blogpost/'>Go to Blog Home</a>";
             } else {
                 echo "❌ Incorrect password.";
             }

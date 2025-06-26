@@ -19,8 +19,8 @@ if ($_SESSION['user_role'] == "author") {
         if (isset($_POST['submit'])) {
             $tittle = $_POST['title'];
             $content = $_POST['content'];
-            
-            // ✅ Safe check to avoid undefined index
+
+            // ✅ Check category selection
             $category_name = isset($_POST['category_name']) ? $_POST['category_name'] : '';
 
             $image_name = $_FILES['image']['name'];
@@ -37,6 +37,7 @@ if ($_SESSION['user_role'] == "author") {
             }
 
             if (!empty($category_name)) {
+                // ✅ Get category ID
                 $sql1 = "SELECT id FROM categories WHERE name = '$category_name'";
                 $result1 = mysqli_query($conn, $sql1);
 
@@ -44,20 +45,21 @@ if ($_SESSION['user_role'] == "author") {
                     $row = mysqli_fetch_assoc($result1);
                     $idforcategory = $row['id'];
 
+                    // ✅ Insert post
                     $sql2 = "INSERT INTO posts (tittle, content, author_id, category_id, image)
                              VALUES ('$tittle', '$content', '$user_id', '$idforcategory', '$image_name')";
 
                     $result2 = mysqli_query($conn, $sql2);
                     if ($result2) {
-                        echo "Post added successfully!";
+                        echo "✅ Post added successfully! <br><a href='displaypost.php'><button>Display Page</button></a>";
                     } else {
-                        echo "Post insert failed: " . $conn->error;
+                        echo "❌ Post insert failed: " . $conn->error;
                     }
                 } else {
-                    echo "Category not found.";
+                    echo "❌ Category not found.";
                 }
             } else {
-                echo "Please select a category.";
+                echo "❌ Please select a category.";
             }
         }
     }
@@ -74,6 +76,7 @@ if ($_SESSION['user_role'] == "author") {
     <title>Insert Post</title>
 </head>
 <body>
+    <h2>Add New Post</h2>
     <form action="insertpost.php" method="POST" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Give the post title here!" required><br><br>
 
@@ -81,14 +84,15 @@ if ($_SESSION['user_role'] == "author") {
 
         <select name="category_name" required>
             <option value="" disabled selected>Select Category</option>
-            <?php while($row = mysqli_fetch_assoc($result)) { ?>
-                <option value="<?php echo $row['name']; ?>">
-                    <?php echo $row['name']; ?>
-                </option>
-            <?php } ?>
+            <?php if (isset($result)) {
+                while($row = mysqli_fetch_assoc($result)) { ?>
+                    <option value="<?php echo $row['name']; ?>">
+                        <?php echo $row['name']; ?>
+                    </option>
+            <?php } } ?>
         </select><br><br>
 
-        <input type="file" name="image" required><br><br>
+        <input type="file" name="image" accept="image/*" required><br><br>
 
         <input type="submit" name="submit" value="Add Post">
     </form>
