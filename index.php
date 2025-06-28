@@ -6,10 +6,10 @@ $files = scandir(__DIR__);
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>📂 Blogpost Directory</title>
+  <title>Home Page</title>
 </head>
 <body>
-  <h1>📁 MD Tauhidul Islam Pranto <br> ID: 41230201217</h1>
+  <h1>MD Tauhidul Islam Pranto <br> ID: 41230201217</h1>
 
   <table border="1" cellpadding="5" cellspacing="0">
     <tr>
