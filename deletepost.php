@@ -62,11 +62,63 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8" />
     <title>Delete Post</title>
+    <style>
+        body {
+            background-color: #f9fafb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            max-width: 400px;
+            text-align: center;
+        }
+        .message {
+            font-weight: 600;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        .success {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .error {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        a button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        a button:hover {
+            background-color: #2563eb;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p><?php echo htmlspecialchars($message); ?></p>
-        <a href="displaypost.php">Back to Posts</a>
+    <div class="container">
+        <div class="message <?php echo $messageClass; ?>">
+            <?php echo $message; ?>
+        </div>
+        <a href="displaypost.php"><button>Back to Posts</button></a>
     </div>
 </body>
 </html>

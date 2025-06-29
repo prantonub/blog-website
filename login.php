@@ -13,7 +13,7 @@ if (isset($_POST['login'])) {
     $result = mysqli_query($conn, $sql);
 
     if (!$result) {
-        $login_message = "<p>❌ Error: {$conn->error}</p>";
+        $login_message = "<p class='error'>❌ Error: {$conn->error}</p>";
     } else {
         if (mysqli_num_rows($result) > 0) {
             $user = mysqli_fetch_assoc($result);
@@ -24,16 +24,16 @@ if (isset($_POST['login'])) {
                 $_SESSION['user_role'] = $user['role'];
 
                 $login_success = true;
-                $login_message = "<div>
+                $login_message = "<div class='success'>
                 ✅ Login Successful! Welcome, " . htmlspecialchars($user['name']) . ".<br>
                 <a href='dashboard.php'>Go to Dashboard</a><br>
-                <a href='http://localhost/blogpost/'>Home Page</a>
+                <a href='http://localhost/blogpost/'>Go to Blog Home</a>
                 </div>";
             } else {
-                $login_message = "<p>❌ Incorrect password.</p>";
+                $login_message = "<p class='error'>❌ Incorrect password.</p>";
             }
         } else {
-            $login_message = "<p>❌ No user found with this email.</p>";
+            $login_message = "<p class='error'>❌ No user found with this email.</p>";
         }
     }
 }
@@ -46,17 +46,17 @@ if (isset($_POST['login'])) {
   <title>Login Form</title>
 </head>
 <body>
-  <div>
+  <div class="login-container">
     <?= $login_message ?>
 
     <?php if (!$login_success): ?>
       <h2>User Login</h2>
       <form action="login.php" method="POST">
-        <label for="email">Email</label><br>
-        <input type="email" id="email" name="email" required /><br><br>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
 
-        <label for="password">Password</label><br>
-        <input type="password" id="password" name="password" required /><br><br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
 
         <button type="submit" name="login">Login</button>
       </form>

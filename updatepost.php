@@ -57,32 +57,112 @@ if (isset($_GET['id'])) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
     <title>Update Post</title>
+    <style>
+        body {
+            background-color: #f7fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            max-width: 520px;
+            width: 100%;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+        h2 {
+            margin-top: 0;
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 28px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        input[type="text"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 16px;
+            border: 1.8px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: block;
+            max-width: 150px;
+            height: auto;
+        }
+        input[type="submit"] {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 14px 0;
+            font-size: 17px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #2563eb;
+        }
+    </style>
 </head>
 <body>
-    <h2>Update Post</h2>
-    <form action="updatepost.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
+    <div class="container">
+        <h2>Update Post</h2>
+        <form action="updatepost.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $post['id']; ?>">
 
-        <label>Tittle:</label><br>
-        <input type="text" name="tittle" value="<?php echo isset($post['tittle']) ? htmlspecialchars($post['tittle']) : ''; ?>" required><br><br>
+            <label for="tittle">Title:</label>
+            <input type="text" id="tittle" name="tittle" value="<?php echo isset($post['tittle']) ? htmlspecialchars($post['tittle']) : ''; ?>" required>
 
-        <label>Content:</label><br>
-        <textarea name="content" rows="5" cols="40" required><?php echo isset($post['content']) ? htmlspecialchars($post['content']) : ''; ?></textarea><br><br>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="5" required><?php echo isset($post['content']) ? htmlspecialchars($post['content']) : ''; ?></textarea>
 
-        <label>Current Image:</label><br>
-        <?php if (!empty($post['image'])): ?>
-            <img src="image/<?php echo htmlspecialchars($post['image']); ?>" width="150" alt="Post Image"><br>
-        <?php else: ?>
-            No image<br>
-        <?php endif; ?>
+            <label>Current Image:</label>
+            <?php if (!empty($post['image'])): ?>
+                <img src="image/<?php echo htmlspecialchars($post['image']); ?>" alt="Post Image">
+            <?php else: ?>
+                <p>No image uploaded</p>
+            <?php endif; ?>
 
-        <label>Change Image:</label><br>
-        <input type="file" name="image" accept="image/*"><br><br>
+            <label for="image">Change Image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
 
-        <input type="submit" name="update" value="Update Post">
-    </form>
+            <input type="submit" name="update" value="Update Post">
+        </form>
+    </div>
 </body>
 </html>
